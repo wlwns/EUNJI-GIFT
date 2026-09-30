@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>너에게 주는 선물 🎁</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Arial", sans-serif;
+      background: linear-gradient(135deg, #ffe1ec, #fff5f8);
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .message {
+      color: #ff4f81;
+      font-size: clamp(17px, 5vw, 22px);
+      margin-bottom: 45px;
+      font-weight: bold;
+    }
+
+    .gift {
+      position: relative;
+      width: min(180px, 58vw);
+      height: min(160px, 52vw);
+      margin: auto;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      user-select: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .gift:hover {
+        transform: scale(1.08);
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        min-height: 100dvh;
+        height: 100dvh;
+      }
+
+      .message {
+        margin-bottom: 30px;
+      }
+
+      .hint {
+        margin-top: 25px;
+        font-size: 13px;
+      }
+    }
+
+    /* 상자 본체 */
+    .box {
+      position: absolute;
+      bottom: 0;
+      left: 5.56%;
+      width: 88.89%;
+      height: 68.75%;
+      background: #ff5c8a;
+      border-radius: 5px;
+      box-shadow: 0 12px 25px rgba(255, 92, 138, 0.3);
+    }
+
+    /* 세로 리본 */
+    .box::before {
+      content: "";
+      position: absolute;
+      left: 65px;
+      top: 0;
+      width: 30px;
+      height: 110px;
+      background: #ffd166;
+    }
+
+    /* 뚜껑 */
+    .lid {
+      position: absolute;
+      left: 0;
+      top: 12.5%;
+      width: 100%;
+      height: 25%;
+      background: #ff4778;
+      border-radius: 6px;
+      z-index: 3;
+      transition: transform 0.8s ease;
+    }
+
+    /* 뚜껑 리본 */
+    .lid::after {
+      content: "";
+      position: absolute;
+      left: 75px;
+      top: 0;
+      width: 30px;
+      height: 40px;
+      background: #ffd166;
+    }
+
+    /* 리본 */
+    .ribbon-left,
+    .ribbon-right {
+      position: absolute;
+      top: 0;
+      width: 55px;
+      height: 35px;
+      border: 10px solid #ffd166;
+      z-index: 4;
+    }
+
+    .ribbon-left {
+      left: 35px;
+      border-radius: 50% 50% 50% 10%;
+      transform: rotate(-25deg);
+    }
+
+    .ribbon-right {
+      right: 35px;
+      border-radius: 50% 50% 10% 50%;
+      transform: rotate(25deg);
+    }
+
+    /* 사랑해 메시지 */
+    .love {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 100%;
+      max-width: 100vw;
+      padding: 0 16px;
+      color: #ff3f76;
+      font-size: clamp(30px, 10vw, 48px);
+      font-weight: bold;
+      opacity: 0;
+      transition: all 0.8s ease;
+      pointer-events: none;
+      text-shadow: 0 4px 15px rgba(255, 63, 118, 0.2);
+    }
+
+    .sub-message {
+      margin-top: 15px;
+      font-size: clamp(14px, 4.5vw, 18px);
+      color: #777;
+      opacity: 0;
+      transition: opacity 1s ease 0.5s;
+    }
+
+    /* 클릭 후 */
+    .opened .lid {
+      transform: translateY(-90px) rotate(-8deg);
+    }
+
+    .opened .love {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+
+    .opened .sub-message {
+      opacity: 1;
+    }
+
+    .opened .gift {
+      animation: disappear 1s forwards;
+    }
+
+    @keyframes disappear {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(0.85);
+        opacity: 0;
+      }
+    }
+
+    /* 하트 */
+    .heart {
+      position: fixed;
+      font-size: 25px;
+      animation: float 4s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .hint {
+      margin-top: 35px;
+      color: #999;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container" id="container">
+
+    <div class="message">
+      🎀 당신을 위한 작은 선물이 있어요 🎀
+    </div>
+
+    <div class="gift" id="gift">
+
+      <div class="ribbon-left"></div>
+      <div class="ribbon-right"></div>
+
+      <div class="lid"></div>
+      <div class="box"></div>
+
+      <div class="hint">
+        
+      </div>
+
+    </div>
+
+    <div class="love">
+      최은지 바보
+      <div class="sub-message">
+        노래 추천해줘서 고마워~
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const gift = document.getElementById("gift");
+    const container = document.getElementById("container");
+
+    function openGift() {
+      if (container.classList.contains("opened")) return;
+
+      container.classList.add("opened");
+
+      // 하트 생성
+      for (let i = 0; i < 30; i++) {
+        setTimeout(() => {
+          const heart = document.createElement("div");
+
+          heart.className = "heart";
+          heart.innerHTML = Math.random() > 0.5 ? "❤️" : "💕";
+
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.top = (70 + Math.random() * 30) + "vh";
+          heart.style.fontSize = (15 + Math.random() * 25) + "px";
+          heart.style.animationDuration =
+            (2.5 + Math.random() * 2) + "s";
+
+          document.body.appendChild(heart);
+
+          setTimeout(() => {
+            heart.remove();
+          }, 5000);
+
+        }, i * 80);
+      }
+    }
+
+    gift.addEventListener("click", openGift);
+    gift.addEventListener("touchend", (event) => {
+      event.preventDefault();
+      openGift();
+    }, { passive: false });
+  </script>
+
+</body>
+</html>
